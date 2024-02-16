@@ -38,18 +38,18 @@ public class DeviceController {
         return this.deviceService.save(newDevice);
     }
 
-    @GetMapping("/{uuid}")
+    @GetMapping("/{id}")
     public Device find(@PathVariable UUID id) {
         return this.deviceService.findById(id);
     }
 
-    @PutMapping("/{uuid}")
+    @PutMapping("/{id}")
     public Device updateStatus(@PathVariable UUID id, @RequestBody DevicePayload updatedDevice) {
 
         return this.deviceService.updateStatus(id, updatedDevice);
     }
 
-    @PutMapping("/{device_uuid}&{employee_uuid}")
+    @PutMapping("/{id}&{id}")
     public Device setEmployee(@PathVariable UUID deviceUuid, @PathVariable UUID employeeUuid) {
        return deviceService.setEmployee(deviceUuid, employeeUuid);
     }
