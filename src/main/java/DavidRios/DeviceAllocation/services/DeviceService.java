@@ -63,6 +63,7 @@ public class DeviceService {
         Device device = findById(deviceUuid);
         if (device.getStatus() != DeviceStatus.AVAILABLE) throw new BadRequestException("Device identified as " + deviceUuid + " is not available.");
         device.setEmployee(employeeService.findById(employeeUuid));
+        device.setStatus(DeviceStatus.ASSIGNED);
         return  deviceRepo.save(device);
     }
 

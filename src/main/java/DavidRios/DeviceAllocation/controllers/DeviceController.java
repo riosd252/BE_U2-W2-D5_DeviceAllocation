@@ -49,7 +49,7 @@ public class DeviceController {
         return this.deviceService.updateStatus(id, updatedDevice);
     }
 
-    @PutMapping("/{deviceUuid}/{employeeUuid}")
+    @PatchMapping("/{deviceUuid}/employee/{employeeUuid}")
     public Device setEmployee(@PathVariable UUID deviceUuid, @PathVariable UUID employeeUuid) {
        return deviceService.setEmployee(deviceUuid, employeeUuid);
     }
