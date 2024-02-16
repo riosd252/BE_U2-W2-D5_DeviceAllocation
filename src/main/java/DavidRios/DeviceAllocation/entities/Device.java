@@ -3,10 +3,7 @@ package DavidRios.DeviceAllocation.entities;
 import DavidRios.DeviceAllocation.enums.DeviceStatus;
 import DavidRios.DeviceAllocation.enums.DeviceType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -21,6 +18,7 @@ public class Device {
     private UUID id;
     @Enumerated(EnumType.STRING)
     private DeviceType type;
+    @Enumerated(EnumType.STRING)
     private DeviceStatus status;
     @ManyToOne
     @JoinColumn(name = "employee_id")

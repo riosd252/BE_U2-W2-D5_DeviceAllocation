@@ -36,18 +36,18 @@ public class EmployeeController {
         return employeeService.save(newEmployee);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{uuid}")
     public Employee find(@PathVariable UUID uuid) {
         return employeeService.findById(uuid);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{uuid}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Employee update(@PathVariable UUID uuid, @RequestBody EmployeePayload updatedEmployee) {
         return employeeService.update(uuid, updatedEmployee);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{uuid}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID uuid) {
         employeeService.delete(uuid);
