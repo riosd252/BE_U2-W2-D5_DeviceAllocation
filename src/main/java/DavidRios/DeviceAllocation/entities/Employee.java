@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "employees")
+@Table(name = "employees", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 @Getter
 @Setter
 @NoArgsConstructor
