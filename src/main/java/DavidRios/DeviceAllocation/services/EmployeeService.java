@@ -5,13 +5,17 @@ import DavidRios.DeviceAllocation.entities.Employee;
 import DavidRios.DeviceAllocation.exceptions.BadRequestException;
 import DavidRios.DeviceAllocation.exceptions.NotFoundException;
 import DavidRios.DeviceAllocation.repositories.EmployeeRepo;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.UUID;
 
 @Service
@@ -19,6 +23,9 @@ public class EmployeeService {
 
     @Autowired
     private EmployeeRepo employeeRepo;
+
+    @Autowired
+    private Cloudinary cloudinaryUploader;
 
     public Page<Employee> getEmployees(int pageNumber, int size, String orderBy) {
         if(size > 10) size = 10;
@@ -45,6 +52,11 @@ public class EmployeeService {
         toUpdate.setEmail(modifiedEmployee.email());
 
         return employeeRepo.save(toUpdate);
+    }
+
+    public String uploadAvatar(MultipartFile image) throws IOException {
+        return (String) cloudinaryUploader.uploader().upload(image.getBytes(),
+                ObjectUtils.emptyMap()).get("url");
     }
 
     public void delete(UUID uuid) {
