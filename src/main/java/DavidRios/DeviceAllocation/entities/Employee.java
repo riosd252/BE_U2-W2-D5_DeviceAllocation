@@ -11,7 +11,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -21,6 +20,15 @@ public class Employee {
     private String name;
     private String surname;
     private String email;
+    private String avatar;
     @OneToMany(mappedBy = "employee")
     private List<Device> devices;
+
+    public Employee (String username, String name, String surname, String email, String avatar) {
+        this.username = username;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.avatar = avatar;
+    }
 }
