@@ -15,7 +15,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,5 +25,10 @@ public class Device {
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
+    public Device(DeviceType type, DeviceStatus status) {
+        this.type = type;
+        this.status = status;
+    }
 
 }

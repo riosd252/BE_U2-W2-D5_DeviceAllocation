@@ -18,7 +18,7 @@ import java.util.UUID;
 public class EmployeeService {
 
     @Autowired
-    EmployeeRepo employeeRepo;
+    private EmployeeRepo employeeRepo;
 
     public Page<Employee> getEmployees(int pageNumber, int size, String orderBy) {
         if(size > 10) size = 10;
@@ -26,9 +26,9 @@ public class EmployeeService {
         return employeeRepo.findAll(pageable);
     }
 
-    public Employee saveEmployee(EmployeePayload newEmployee) {
+    public Employee save(EmployeePayload newEmployee) {
         employeeRepo.findByEmail(newEmployee.email()).ifPresent(employee -> {
-            throw  new BadRequestException("Email address " + employee.getEmail() + " is already in use.");
+            throw  new BadRequestException("Email address " + employee.getEmail() + " already exists.");
         });
         return employeeRepo.save(new Employee(newEmployee.username(), newEmployee.name(), newEmployee.surname(), newEmployee.email(), "https://i.pravatar.cc/300"));
     }
