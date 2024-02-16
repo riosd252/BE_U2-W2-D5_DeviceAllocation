@@ -4,6 +4,7 @@ import DavidRios.DeviceAllocation.DTOs.DevicePayload;
 import DavidRios.DeviceAllocation.entities.Device;
 import DavidRios.DeviceAllocation.enums.DeviceStatus;
 import DavidRios.DeviceAllocation.enums.DeviceType;
+import DavidRios.DeviceAllocation.exceptions.BadRequestException;
 import DavidRios.DeviceAllocation.exceptions.NotFoundException;
 import DavidRios.DeviceAllocation.repositories.DeviceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,8 @@ public class DeviceService {
     @Autowired
     private EmployeeService employeeService;
 
-    private final Map<Integer,DeviceType> deviceTypeMap = Map.ofEntries(entry(1, DeviceType.SMARTPHONE),
+
+  private final Map<Integer,DeviceType> deviceTypeMap = Map.ofEntries(entry(1, DeviceType.SMARTPHONE),
             entry(2, DeviceType.TABLET),
             entry(3, DeviceType.LAPTOP));
 
@@ -36,6 +38,7 @@ public class DeviceService {
             entry(3, DeviceStatus.MAINTENANCE),
             entry(4, DeviceStatus.UNAVAILABLE));
 
+
     public Page<Device> getDevices(int pageNumber, int size, String orderBy) {
         if(size > 10) size = 10;
         Pageable pageable = PageRequest.of(pageNumber, size, Sort.by(orderBy));
@@ -43,7 +46,6 @@ public class DeviceService {
     }
 
     public Device save(DevicePayload newDevice) {
-
         return deviceRepo.save(new Device(deviceTypeMap.get(newDevice.deviceType()), deviceStatusMap.get(newDevice.deviceStatus())));
     }
 
@@ -59,8 +61,9 @@ public class DeviceService {
 
     public Device setEmployee(UUID deviceUuid, UUID employeeUuid) {
         Device device = findById(deviceUuid);
+        if (device.getStatus() != DeviceStatus.AVAILABLE) throw new BadRequestException("Device identified as " + deviceUuid + " is not available.");
         device.setEmployee(employeeService.findById(employeeUuid));
-        return  device;
+        return  deviceRepo.save(device);
     }
 
     public void delete(UUID uuid) {

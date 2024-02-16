@@ -1,5 +1,6 @@
 package DavidRios.DeviceAllocation.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class Employee {
     private String email;
     private String avatar;
     @OneToMany(mappedBy = "employee")
+    @JsonIgnore
     private List<Device> devices;
 
     public Employee (String username, String name, String surname, String email, String avatar) {
