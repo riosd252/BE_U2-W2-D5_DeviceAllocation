@@ -37,11 +37,15 @@ public class EmployeeService {
         employeeRepo.findByEmail(newEmployee.email()).ifPresent(employee -> {
             throw  new BadRequestException("Email address " + employee.getEmail() + " already exists.");
         });
-        return employeeRepo.save(new Employee(newEmployee.username(), newEmployee.name(), newEmployee.surname(), newEmployee.email(), "https://i.pravatar.cc/300"));
+        return employeeRepo.save(new Employee(newEmployee.username(), newEmployee.name(), newEmployee.surname(), newEmployee.email(), newEmployee.password(), "https://i.pravatar.cc/300"));
     }
 
     public Employee findById(UUID uuid) {
         return employeeRepo.findById(uuid).orElseThrow(() -> new NotFoundException("Employee identified as " + uuid + " was not found."));
+    }
+
+    public Employee findByUsername(String username) {
+        return employeeRepo.findByUsername(username).orElseThrow(() -> new NotFoundException("Employee identified as " + username + " was not found."));
     }
 
     public Employee update(UUID uuid, EmployeePayload modifiedEmployee) {

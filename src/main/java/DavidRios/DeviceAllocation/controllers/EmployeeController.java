@@ -37,20 +37,20 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public Employee find(@PathVariable UUID uuid) {
-        return employeeService.findById(uuid);
+    public Employee find(@PathVariable UUID id) {
+        return employeeService.findById(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Employee update(@PathVariable UUID uuid, @RequestBody EmployeePayload updatedEmployee) {
-        return employeeService.update(uuid, updatedEmployee);
+    public Employee update(@PathVariable UUID id, @RequestBody EmployeePayload updatedEmployee) {
+        return employeeService.update(id, updatedEmployee);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable UUID uuid) {
-        employeeService.delete(uuid);
+    public void delete(@PathVariable UUID id) {
+        employeeService.delete(id);
     }
 
 }

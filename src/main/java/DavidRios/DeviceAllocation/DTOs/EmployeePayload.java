@@ -20,6 +20,9 @@ public record EmployeePayload(@NotEmpty(message = "Username is mandatory.")
                               @NotEmpty(message = "Email is mandatory.")
                               @NotBlank
                               @Email
-                              String email
+                              String email,
+                              @NotEmpty(message = "Password is mandatory")
+                              @NotBlank
+                              String password
                               ) {
 }

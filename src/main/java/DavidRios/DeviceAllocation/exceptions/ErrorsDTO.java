@@ -3,7 +3,6 @@ package DavidRios.DeviceAllocation.exceptions;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
